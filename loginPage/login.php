@@ -81,7 +81,7 @@
                 if (mysqli_connect_errno()) echo "Failed to connect to MySQL: " . mysqli_connect_error();
                 $database = mysqli_select_db($connection, DB_DATABASE);
 
-                $result = mysqli_query($connection, "SELECT password FROM users WHERE email=",$user);
+                $result = mysqli_query($connection, "SELECT password FROM users WHERE username=",$user);
 
                 if(mysqli_num_rows($result) > 0){
                     $hashed = $result[0]['password'];
@@ -90,7 +90,7 @@
                     {
                         // $hash_pwd = password_hash($pwd, PASSWORD_BCRYPT);
                         $hash_pwd = $_POST['pwd'];
-                        $_SESSION['email'] = $user;
+                        $_SESSION['username'] = $user;
                         $_SESSION['pwd'] = $hash_pwd;
                         header('Location: index.html');
                     }
