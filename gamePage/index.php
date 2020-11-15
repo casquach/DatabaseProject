@@ -9,10 +9,9 @@
 <body>
 	<?php
 		/* Connect to MySQL and select the database. */
-		$connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+		$connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
 
 		if (mysqli_connect_errno()) echo "Failed to connect to MySQL: " . mysqli_connect_error();
-		$database = mysqli_select_db($connection, DB_DATABASE);
 	?>
 
 	<div id="nav-placeholder">
@@ -45,21 +44,33 @@
 		<img id="gamePicture" src="" >
 		<div class="column" style="margin:2.5%">
 			<h2 id ="gameName">WHAT</header>
-			<h3>Gamers: 69</h5>
 			<?php
 				$gameName = $_GET['myGame'];
 				$spacedName = ltrim(preg_replace('/(?<! )(?<!^)[A-Z0-9]/',' $0', $gameName));
-				$result = mysqli_query($connection, "SELECT * FROM game NATURAL JOIN hasGenres WHERE game_name=",$spacedName);
-				$query_data = mysqli_fetch_row($result);
-				echo "SELECT * FROM game NATURAL JOIN hasGenres WHERE game_name=".$spacedName;
-				echo $query_data[0];
-				echo $query_data[1];
-				echo $query_data[2];
+				$query = "SELECT COUNT(*) FROM users NATURAL JOIN plays where game_name = '" . $spacedName . "'";
+				if ($result = mysqli_query($connection, $query)) {
+                                        $query_data = mysqli_fetch_row($result);
+                                        echo "<h2>Gamers: " . $query_data[0] . "</h2>";
+                                }
+                                else {
+                                      	echo "SAD";
+                                }
+
+				$query = "SELECT year_published, description, publisher_name FROM game NATURAL JOIN publishes WHERE game_name = '" . $spacedName . "'";
+				if ($result = mysqli_query($connection, $query)) {
+					$query_data = mysqli_fetch_row($result);
+					echo "<h4>" . $query_data[1] . " Published in " . $query_data[0] . " by " . $query_data[2] . ".</h4>";
+				}
+				else {
+					echo "SAD";
+				}
 			?>
 		</div>
 	</div>
 	<div class="row">
-
+		<?php
+			 
+		?>
 	</div>
 		
 	<?php
