@@ -81,7 +81,7 @@
                         $hash_pwd = $_POST['pwd'];
                         $_SESSION['username'] = $user;
                         $_SESSION['pwd'] = $hash_pwd;
-                        header('Location: index.html');
+                        header('Location: /index.html');
                     }
                     else
                     {
