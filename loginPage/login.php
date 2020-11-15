@@ -33,7 +33,7 @@
             <form class="needs-validation" action="<?php $_SERVER['PHP_SELF'] ?>" id="login" method="post"> 
             <div class="form-group mx-sm-5 mb-2">
                 <p id="failedLogin"></p>
-                <input type="text" name="username" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Enter username" autofocus required>
+                <input type="text" name="username" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Enter email" autofocus required>
                 <small id="usernameHelp" class="form-text wrong-login" ></small>
             </div>    
 
@@ -77,31 +77,22 @@
             }
             else
             {
-                
-                require('connect-db.php');
-                global $db;
-
                 $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
                 if (mysqli_connect_errno()) echo "Failed to connect to MySQL: " . mysqli_connect_error();
                 $database = mysqli_select_db($connection, DB_DATABASE);
 
-                $query = "SELECT password FROM register WHERE username = :username";
-                $statement = $db->prepare($query);
-                $statement->bindValue(':username', $user);
-                $statement->execute();
-                $results = $statement->fetchAll();
-                $statement->closeCursor();
-                if(!empty($results))
-                {
-                    $hashed = $results[0]['password'];
+                $result = mysqli_query($connection, "SELECT password FROM users WHERE email=",$user);
+
+                if(mysqli_num_rows($result) > 0){
+                    $hashed = $result[0]['password'];
 
                     if($_POST['pwd'] == $hashed)
                     {
                         // $hash_pwd = password_hash($pwd, PASSWORD_BCRYPT);
                         $hash_pwd = $_POST['pwd'];
-                        $_SESSION['username'] = $user;
+                        $_SESSION['email'] = $user;
                         $_SESSION['pwd'] = $hash_pwd;
-                        header('Location: lobby.php');
+                        header('Location: index.html');
                     }
                     else
                     {
@@ -118,6 +109,10 @@
 
 
 ?>
+<?php
+        mysqli_free_result($result);
+        mysqli_close($connection);
+    ?>
 
 
 </body>
