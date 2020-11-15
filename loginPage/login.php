@@ -54,20 +54,9 @@
     session_start();
 ?>
 <?php
-    function reject($entry){
-        echo $entry . ' must be alphanumeric characters';
-        exit();
-    }
-
-
-
     if($_SERVER['REQUEST_METHOD']=="POST" && strlen($_POST['username']) > 0)
     {
         $user = trim($_POST['username']);
-        if(!ctype_alnum($user)) //built in function that checks to make sure its alphanumeric 
-        {
-            reject('username');
-        }
         if(isset($_POST['pwd'])) //check if password null
         {
             $pwd = trim($_POST['pwd']);
@@ -81,7 +70,7 @@
                 if (mysqli_connect_errno()) echo "Failed to connect to MySQL: " . mysqli_connect_error();
                 $database = mysqli_select_db($connection, DB_DATABASE);
 
-                $result = mysqli_query($connection, "SELECT password FROM users WHERE username=",$user);
+                $result = mysqli_query($connection, "SELECT password FROM users WHERE email=",$user);
 
                 if(mysqli_num_rows($result) > 0){
                     $hashed = $result[0]['password'];
