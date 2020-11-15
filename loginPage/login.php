@@ -70,7 +70,7 @@
                 if (mysqli_connect_errno()) echo "Failed to connect to MySQL: " . mysqli_connect_error();
                 $database = mysqli_select_db($connection, DB_DATABASE);
 
-                $result = mysqli_query($connection, "SELECT password FROM users WHERE email=",$user);
+                $result = mysqli_query($connection, "SELECT * FROM users WHERE email='$user'");
 
                 if(mysqli_num_rows($result) > 0){
                     $hashed = $result[0]['password'];
