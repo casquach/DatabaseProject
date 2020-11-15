@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php include "../inc/dbinfo.inc"; ?>
+<?php include "../../inc/dbinfo.inc"; ?>
 <html>
 <head>
   <meta charset="UTF-8">  
