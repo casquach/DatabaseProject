@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<link rel="stylesheet" href="gamePage.css">
+	<link rel="stylesheet" href="" id="nav-css">
+</head>
+<body>
+	<div id="nav-placeholder">
+
+	</div>
+
+	<script type="text/javascript">
+		var url = window.location.href;
+		var game = url.substring(url.indexOf("myGame=")+7);
+
+		var spacedGame = "";
+		for (let i = 0; i < game.length; i++){
+			if (game.charAt(i) == game.charAt(i).toUpperCase()){
+				spacedGame += " ";
+			}
+			spacedGame += game.charAt(i);
+		}
+
+		var baseUrl = url.split("/")[0] + "//" + url.split("/")[2]
+		window.onload = function() {
+			document.getElementById("gamePicture").src= baseUrl + "/gameImages/" + game + ".jpg";
+			$("#nav-placeholder").load(baseUrl + "/nav.html", function(){
+				document.getElementById("home").href = baseUrl;
+				document.getElementById("nav-css").href=baseUrl + "/css/nav.css";
+			});
+			document.getElementById("gameName").textContent = spacedGame;
+		} 
+	</script>
+	<div class="row" style="margin:2.5%">
+		<img id="gamePicture" src="" >
+		<div class="column" style="margin:2.5%">
+			<h2 id ="gameName">WHAT</header>
+			<h3>Gamers: 69</h5>
+			<p>League of Legends is a free-to-play competitive MOBA game with a large following in Esports.</p>
+		</div>
+	</div>
+	<div class="row">
+
+	</div>
+		
+
+</body>
+</html>

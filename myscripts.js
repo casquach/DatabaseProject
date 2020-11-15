@@ -1,6 +1,12 @@
+var url = window.location.href;
+var baseUrl = url.split("/")[0] + "//" + url.split("/")[2];
+
+window.onload = function() {
+	$("#nav-placeholder").load(baseUrl + "/nav.html", function(){
+		document.getElementById("home").href = baseUrl;
+	});
+} 
 
 function goToGamePage(game){
-	var current = window.location.href;
-	var newUrl = current.substring(0,current.length-10) + 'gamePage.html?myGame=' + game;
-	window.location.href = newUrl;
+	document.location = 'gamePage?myGame=' + game;
 }
