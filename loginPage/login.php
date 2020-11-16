@@ -57,6 +57,7 @@
     if($_SERVER['REQUEST_METHOD']=="POST" && strlen($_POST['username']) > 0)
     {
         $user = trim($_POST['username']);
+        $u = mysql_escape_string($user);
         if(isset($_POST['pwd'])) //check if password null
         {
             $pwd = trim($_POST['pwd']);
@@ -70,7 +71,7 @@
                 if (mysqli_connect_errno()) echo "Failed to connect to MySQL: " . mysqli_connect_error();
                 $database = mysqli_select_db($connection, DB_DATABASE);
 
-                $result = mysqli_query($connection, "SELECT * FROM users WHERE email='$user'");
+                $result = mysqli_query($connection, "SELECT * FROM users WHERE email='$u'");
 
                 if(mysqli_num_rows($result) > 0){
                     $query_data = mysqli_fetch_row($result);
