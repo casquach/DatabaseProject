@@ -39,7 +39,7 @@
             <div class="form-group mx-sm-5 mb-2 form-rounded">
                 <button class="btn btn-lg btn-primary" type="submit" >Sign in</button>
                 <br>    
-                <a href="http://localhost:4200" class="register">Don't have an account? Register now</a>
+                <a href="/registerPage/register.php" class="register">Don't have an account? Register now</a>
             </div> 
         </form>
     </div>
