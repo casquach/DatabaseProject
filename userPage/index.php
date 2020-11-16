@@ -55,15 +55,22 @@
 				$query_data = mysqli_fetch_row($result);
 				echo "Bio: " . $query_data[0];
 				echo "<p></p>";
-				
-				$result = mysqli_query($connection, "SELECT COUNT(email2) FROM isFriendsWith WHERE email1 = '" . $email . "'");
-								$query_data = mysqli_fetch_row($result);
-                                echo "<h2>" . $query_data[0] . "</h2>";
-				echo "<p></p>";
-
-			
 
 			?>
+		<table id="myTable">
+				<?php
+				$query = "SELECT email2 FROM isFriendsWith WHERE email1 = '" . $email . "'";
+                if ($result = mysqli_query($connection, $query)) {
+                         while ($query_data = mysqli_fetch_row($result)){
+						echo "<tr>";
+                                        	echo "<td>" . $query_data[0] . "</td>";
+
+						echo "</tr>";
+                     }
+				}
+			?>
+
+			</table>
 		
             <div id="myDiv" style="display:none;">
 		<form id="mailtext" method="post">
