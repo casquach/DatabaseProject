@@ -39,13 +39,11 @@
             </div> 
 </br></br>
             <div class="form-group mx-sm-5 mb-2">
-                <input type="text" name="username" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Enter username" autofocus required>
-                <small id="usernameHelp" class="form-text wrong-login" ></small>
+                <input type="text" name="username" class="form-control" id="username" placeholder="Enter username" autofocus required>
             </div>    
 </br></br>
             <div class="form-group mx-sm-5 mb-2 form-rounded">
                 <input type="password" name="pwd" class ="form-control" id="password" placeholder="Password" required method="get"/>
-                <small id="passwordHelp" class="form-text wrong-login" ></small>
             </div>
             <div class="form-group mx-sm-5 mb-2 form-rounded">
                 <button class="btn btn-lg btn-primary" name='btnaction' value='register' type="submit" >Register</button>
@@ -91,7 +89,9 @@ function register()
     //$hash_pwd = password_hash($password, PASSWORD_BCRYPT);
 
     $query = "INSERT INTO users (email, password, username, firstName, lastName) VALUES ('$email', '$password', '$username', '$first', '$last');";
-    if(!mysqli_query($connection, $query)) echo("<p>Error registering</p>");
+    if(mysqli_query($connection, $query) == false){
+        echo "error in insertion";
+    }
 
     session_start();
     $_SESSION['email'] = $email;
