@@ -15,14 +15,14 @@
     <body>
         <header>
             <div class="row">
-                <div class="col-md-12" href="/index.html">
+                <div class="col-md-12">
                     <h1>UVA Gamers</h1>
                 </div>
             </div>
         </header>
 
         <div class="row">
-        <div class="col-md-4">Register</div>
+        <div class="col-md-4"></div>
         <div class="col-md-4">
             <form class="needs-validation" action="<?php $_SERVER['PHP_SELF'] ?>" id="login" method="get"> 
 
