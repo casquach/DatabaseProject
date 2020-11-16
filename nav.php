@@ -7,7 +7,7 @@
   <a class="active" href="#home" id="home">Home</a>
   <div class="topnav-right" style="float:right">
     <a class="active" href="#user" id="user">User</a>
-    <a class="active" href="#logout" id="logout">Logout</a>
+    <a class="active" href="/logout.php" id="logout">Logout</a>
   </div>
 </div>
 
