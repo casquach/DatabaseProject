@@ -56,6 +56,14 @@
 				$query_data = mysqli_fetch_row($result);
 				echo "Bio: " . $query_data[0];
 				echo "<p></p>";
+				
+				$result = mysqli_query($connection, "SELECT email2 FROM isFriendsWith WHERE email1 = '" . $email . "'");
+								$query_data = mysqli_fetch_row($result);
+                                echo "<h2>" . $query_data[0] . "</h2>";
+				echo "<p></p>";
+
+			
+
 			?>
 <!--
 			<form id="mailtext" method="post">
