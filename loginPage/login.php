@@ -76,8 +76,8 @@
                 $result = mysqli_query($connection, "SELECT * FROM users WHERE email='$user'");
 
                 if(mysqli_num_rows($result) > 0){
-                    $hashed = $result[0]['password'];
-
+                    $query_data = mysqli_fetch_row($result);
+                    $hashed = $query_data[1];
 
                     if($_POST['pwd'] == $hashed)
                     {
