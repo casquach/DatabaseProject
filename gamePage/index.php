@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<?php session_start(); 
+        if(isset($_SESSION['email']))
+        {
+    ?>
+
 <html>
 <?php include "../../inc/dbinfo.inc"; ?>
 <head>
@@ -36,7 +41,9 @@
 			$("#nav-placeholder").load(baseUrl + "/nav.php", function(){
 				document.getElementById("home").href = baseUrl;
 				if (document.getElementById("user")){
-					document.getElementById("user").href = baseUrl + "/userPage";
+					<?php
+						echo document.getElementById("user").href = baseUrl + "/userPage?user=" + $_SESSION["email"];
+					?>
 				}
 				document.getElementById("nav-css").href = baseUrl + "/css/nav.css";
 				document.getElementById("background").style = "background-image: url(" + baseUrl + "/gameBackgrounds/" + game + ".png); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;";
@@ -75,6 +82,24 @@
 					echo "SAD";
 				}
 			?>
+		        <form id="mailtext" method="post">
+                        	<input type="submit" name="submit" value="Add To My Games">
+                	</form>
+                     	<?php
+				$gameName = $_GET['myGame'];
+				$email = $_SESSION['email'];
+                             	$stmt = mysqli_stmt_init($connection);
+                                if(isset($_POST['submit'])) {
+                                   $query = "INSERT INTO plays (email, gameName) VALUES (?,?)";
+                                   mysqli_stmt_prepare($stmt, $query);
+                                   mysqli_stmt_bind_param($stmt, "ss", $email, $gameName);
+                                   mysqli_stmt_execute($stmt);
+                                   mysqli_stmt_close($stmt);
+				   echo $email;
+				   echo $gameName;
+                                   echo 'Successfully saved!';
+                                }
+                        ?>
 		</div>
 	</div>
 	<div class="row">
@@ -86,11 +111,11 @@
 				<th onclick="sortTable(3)">Email</th>
 			</tr>
 			<?php
-				$query = "SELECT firstName, lastName, game_username, game_account.rank, email, username FROM game_account NATURAL JOIN users where game_name = '" . $spacedName . "'";
+				$query = "SELECT firstName, lastName, game_username, game_account.rank, email FROM game_account NATURAL JOIN users where game_name = '" . $spacedName . "'";
                                 if ($result = mysqli_query($connection, $query)) {
                                         while ($query_data = mysqli_fetch_row($result)){
 						echo "<tr>";
-                                        	echo "<td><a id='" . $query_data[5] . "' class='userRow' href='asdf'>" . $query_data[0] . " " . $query_data[1] . "</td>";
+                                        	echo "<td><a id='" . $query_data[4] . "' class='userRow' href='asdf'>" . $query_data[0] . " " . $query_data[1] . "</td>";
 						echo "<td>" . $query_data[2] . "</td>";
 						echo "<td>" . $query_data[3] . "</td>";
 						echo "<td>" . $query_data[4] . "</td>";
@@ -163,3 +188,19 @@ function sortTable(n) {
 }
 </script>
 </html>
+
+<?php 
+      	}
+	else{
+    ?>
+
+<div class="topnav">
+  <a class="active" href="#home" id="home">Home</a>
+  <div class="topnav-right" style="float:right">
+    <a class="active" href="/loginPage/login.php" id="login">Login</a>
+  </div>
+</div>
+
+<?php 
+      	}
+?>
