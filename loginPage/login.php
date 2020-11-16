@@ -52,6 +52,11 @@
     session_start();
 ?>
 <?php
+    function reject($entry){
+        echo $entry . ' must be alphanumeric characters';
+        exit();
+    }
+
     if($_SERVER['REQUEST_METHOD']=="POST" && strlen($_POST['username']) > 0)
     {
         $user = trim($_POST['username']);
@@ -73,11 +78,12 @@
                 if(mysqli_num_rows($result) > 0){
                     $hashed = $result[0]['password'];
 
+
                     if($_POST['pwd'] == $hashed)
                     {
                         // $hash_pwd = password_hash($pwd, PASSWORD_BCRYPT);
                         $hash_pwd = $_POST['pwd'];
-                        $_SESSION['username'] = $user;
+                        $_SESSION['email'] = $user;
                         $_SESSION['pwd'] = $hash_pwd;
                         echo "Login successful";
                         //header('Location: http://ec2-54-91-203-237.compute-1.amazonaws.com');
