@@ -91,12 +91,12 @@ function register()
     //$hash_pwd = password_hash($password, PASSWORD_BCRYPT);
 
     $query = "INSERT INTO users (email, password, username, firstName, lastName) VALUES ('$email', '$password', '$username', '$first', '$last');";
-    if(!mysqli_query($connection, $query)) echo("<p>Error registering</p>");
-
-    session_start();
-    $_SESSION['email'] = $email;
-    $_SESSION['pwd'] = $password;
-    header('Location: /index.html');
+    if(mysqli_query($connection, $query))){
+        session_start();
+        $_SESSION['email'] = $email;
+        $_SESSION['pwd'] = $password;
+        header('Location: /index.html');
+    }
 }
 ?>
     </body>
