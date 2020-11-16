@@ -8,7 +8,6 @@
     <title>UVA Gamers - Register</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles/custom.css" />
     <link rel="shortcut icon" href="images/favicon.png" type="image/ico" />
                
     </head>
@@ -90,7 +89,7 @@ function register()
 
     $query = "INSERT INTO users (email, password, username, firstName, lastName) VALUES ('$email', '$password', '$username', '$first', '$last');";
     if(mysqli_query($connection, $query) == false){
-        echo "error in insertion";
+        echo "Error: creating account failed. Check to see if there's an account associated with the email address provided.";
     }
     else{
         session_start();
