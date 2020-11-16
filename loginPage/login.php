@@ -6,8 +6,6 @@
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <meta name="author" content="Vinh Do, Kirtana Pathak, Liem Budzien">
   <meta name="description" content="Login page for Telestrations">  
     
   <link rel="shortcut icon" href="images/favicon.png" type="image/ico" />
@@ -81,7 +79,7 @@
                         $hash_pwd = $_POST['pwd'];
                         $_SESSION['username'] = $user;
                         $_SESSION['pwd'] = $hash_pwd;
-                        header('Location: /index.html');
+                        header('Location: /');
                     }
                     else
                     {
