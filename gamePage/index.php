@@ -190,15 +190,6 @@ function sortTable(n) {
 <?php 
       	}
 	else{
+		header('Location: /loginPage/login.php');
+	}
     ?>
-
-<div class="topnav">
-  <a class="active" href="#home" id="home">Home</a>
-  <div class="topnav-right" style="float:right">
-    <a class="active" href="/loginPage/login.php" id="login">Login</a>
-  </div>
-</div>
-
-<?php 
-      	}
-?>
