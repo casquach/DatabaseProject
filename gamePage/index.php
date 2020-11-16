@@ -4,7 +4,7 @@
 <head>
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	<link rel="stylesheet" href="gamePage.css">
-	<link rel="stylesheet" href="" id="nav-css">
+	<link rel="stylesheet" href="asdf" id="nav-css">
 </head>
 <body id="background">
 	<?php
@@ -33,11 +33,19 @@
 		var baseUrl = url.split("/")[0] + "//" + url.split("/")[2]
 		window.onload = function() {
 			document.getElementById("gamePicture").src= baseUrl + "/gameImages/" + game + ".jpg";
-			$("#nav-placeholder").load(baseUrl + "/nav.html", function(){
+			$("#nav-placeholder").load(baseUrl + "/nav.php", function(){
 				document.getElementById("home").href = baseUrl;
-				document.getElementById("user").href = baseUrl + "/userPage";
+				if (document.getElementById("user")){
+					document.getElementById("user").href = baseUrl + "/userPage";
+				}
 				document.getElementById("nav-css").href = baseUrl + "/css/nav.css";
-				document.getElementById("background").style = "background-image: url(" + baseUrl + "/gameBackgrounds/" + game + ".jpg); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;";
+				document.getElementById("background").style = "background-image: url(" + baseUrl + "/gameBackgrounds/" + game + ".png); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;";
+				var userRows = document.getElementsByClassName("userRow");
+				
+				var i;
+				for (i = 0; i < userRows.length; i++){
+					userRows[i].href = baseUrl + "/userPage?user=" + userRows[i].id;
+				}
 			});
 			document.getElementById("gameName").textContent = spacedGame;
 		} 
@@ -78,16 +86,17 @@
 				<th onclick="sortTable(3)">Email</th>
 			</tr>
 			<?php
-				echo "<tr>";
-				$query = "SELECT firstName, lastName, game_username, game_account.rank, email FROM game_account NATURAL JOIN users where game_name = '" . $spacedName . "'";
+				$query = "SELECT firstName, lastName, game_username, game_account.rank, email, username FROM game_account NATURAL JOIN users where game_name = '" . $spacedName . "'";
                                 if ($result = mysqli_query($connection, $query)) {
-                                        $query_data = mysqli_fetch_row($result);
-                                        echo "<td>" . $query_data[0] . " " . $query_data[1] . "</td>";
-					echo "<td>" . $query_data[2] . "</td>";
-					echo "<td>" . $query_data[3] . "</td>";
-					echo "<td>" . $query_data[4] . "</td>";
-                                }
-				echo "</tr>";
+                                        while ($query_data = mysqli_fetch_row($result)){
+						echo "<tr>";
+                                        	echo "<td><a id='" . $query_data[5] . "' class='userRow' href='asdf'>" . $query_data[0] . " " . $query_data[1] . "</td>";
+						echo "<td>" . $query_data[2] . "</td>";
+						echo "<td>" . $query_data[3] . "</td>";
+						echo "<td>" . $query_data[4] . "</td>";
+						echo "</tr>";
+                                	}
+				}
 			?>
 		</table>
 	</div>
