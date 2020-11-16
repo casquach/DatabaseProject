@@ -16,14 +16,14 @@
 <body>  
     <header>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12" href="/index.html">
                 <h1>UVA Gamers</h1>
             </div>
         </div>
     </header>
 
     <div class="row">
-        <div class="col-md-4"></div>
+        <div class="col-md-4">Login</div>
         <div class="col-md-4">
             <form class="needs-validation" action="<?php $_SERVER['PHP_SELF'] ?>" id="login" method="post"> 
             <div class="form-group mx-sm-5 mb-2">
@@ -39,7 +39,7 @@
             <div class="form-group mx-sm-5 mb-2 form-rounded">
                 <button class="btn btn-lg btn-primary" type="submit" >Sign in</button>
                 <br>    
-                <a href="http://localhost:4200" class="register">Don't have an account? Register now</a>
+                <a href="/registerPage/register.php" class="register">Don't have an account? Register now</a>
             </div> 
         </form>
     </div>

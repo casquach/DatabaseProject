@@ -23,7 +23,7 @@
 
 		var baseUrl = url.split("/")[0] + "//" + url.split("/")[2]
 		window.onload = function() {
-			$("#nav-placeholder").load(baseUrl + "/nav.html", function(){
+			$("#nav-placeholder").load(baseUrl + "/nav.php", function(){
 				document.getElementById("home").href = baseUrl;
 				document.getElementById("nav-css").href=baseUrl + "/css/nav.css";
 			});
@@ -31,14 +31,13 @@
 	</script>
 	<div class="row" style="margin:2.5%">
 		<?php
-  			$email = "cq5yc@virginia.edu";
+  			$email = $_GET["user"];
   			$result = mysqli_query($connection, "SELECT picture FROM users WHERE email= '" . $email . "'");
   			$query_data = mysqli_fetch_row($result);
   			echo '<img src="data:image/jpeg;base64,'.base64_encode( $query_data[0] ).'"/>';
 		?>
 		<div class="column" style="margin:2.5%">
 			<?php
-				$email = "cq5yc@virginia.edu";
 				$result = mysqli_query($connection, "SELECT firstName FROM users WHERE email= '" . $email . "'");
                                 $query_data = mysqli_fetch_row($result);
                                 echo "<h2>" . $query_data[0] . " ";
@@ -71,39 +70,33 @@
             </form>
 -->
             <div id="myDiv" style="display:none;">
-                WELCOME
-            
+		<form id="mailtext" method="post">
+                	<textarea name="firstName" style="width: 140px; height: 20px;">First Name</textarea>
+			<textarea name="lastName" style="width: 140px; height: 20px;">Last Name</textarea>
+			<textarea name="bio" style="width: 140px; height: 20px;">Bio</textarea>
+			<input type="submit" name="submit" value="Edit">
+            	</form>
             </div>
-            <input id="myButton" type="button" name="edit" />
+            <input id="myButton" type="button" value="edit" />
+	    <script>
             $('#myButton').click(function() {
+	      $('#myButton').toggle();
               $('#myDiv').toggle('slow', function() {
-                // Animation complete.
               });
             });
-            
+            </script>
 			<?php
+				$stmt = mysqli_stmt_init($connection);
 				if(isset($_POST['submit'])) {
-				   $query2 = "UPDATE mailtext SET text=? WHERE id=1";
-				   $stmt = mysqli_prepare($connection, $query2);
-				   mysqli_stmt_bind_param($stmt, "s", $text);
+				   $firstName = $_POST['firstName'];
+				   $lastName = $_POST['lastName'];
+				   $bio = $_POST['bio'];
+			   	   $query = "UPDATE users SET firstName=?, lastName=?, bio=?  WHERE email= '" . $email . "'";
+    				   mysqli_stmt_prepare($stmt, $query);
+    				   mysqli_stmt_bind_param($stmt, "sss", $firstName, $lastName, $bio);
 				   mysqli_stmt_execute($stmt);
-				   echo 'Successfully saved!';
-				}
-
-				$query = "SELECT text FROM mailtext";
-				$result = mysqli_query($connection, $query);
-
-				while($row = mysqli_fetch_assoc($result))
-				{
-				    $text = iconv('iso-8859-2', 'utf-8', $row['text']);
-				    echo'
-					<center>
-						<form id="mailtext" method="post">
-    							<textarea name="text" style="width: 500px; height: 300px;">'.$text.'</textarea>
-        						<input type="submit" name="submit" value="Save">
-    						</form>
-					</center>
-					';
+				   mysqli_stmt_close($stmt);
+				   echo 'Successfully saved! Please refresh';
 				}
 			?>
 		</div>

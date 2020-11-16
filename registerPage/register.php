@@ -15,32 +15,31 @@
     <body>
         <header>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12" href="/index.html">
                     <h1>UVA Gamers</h1>
                 </div>
             </div>
         </header>
 
         <div class="row">
-        <div class="col-md-4"></div>
+        <div class="col-md-4">Register</div>
         <div class="col-md-4">
             <form class="needs-validation" action="<?php $_SERVER['PHP_SELF'] ?>" id="login" method="get"> 
 
             <div class="form-group mx-sm-5 mb-2">
                 <input type="text" name="email" class="form-control" id="email" placeholder="Enter email" autofocus required>
             </div> 
-</br></br>
+</br>
             <div class="form-group mx-sm-5 mb-2">
                 <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Enter first name" autofocus required>
             </div> 
             <div class="form-group mx-sm-5 mb-2">
                 <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Enter last name" autofocus required>
             </div> 
-</br></br>
+</br>
             <div class="form-group mx-sm-5 mb-2">
                 <input type="text" name="username" class="form-control" id="username" placeholder="Enter username" autofocus required>
             </div>    
-</br></br>
             <div class="form-group mx-sm-5 mb-2 form-rounded">
                 <input type="password" name="pwd" class ="form-control" id="password" placeholder="Password" required method="get"/>
             </div>
