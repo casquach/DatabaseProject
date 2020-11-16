@@ -17,7 +17,7 @@
     <header>
         <div class="row">
             <div class="col-md-12">
-                <h1>UVA Gamers</h1>
+                <h1 href="/index.html">UVA Gamers</h1>
             </div>
         </div>
     </header>
