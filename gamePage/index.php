@@ -41,7 +41,7 @@
 			$("#nav-placeholder").load(baseUrl + "/nav.php", function(){
 				document.getElementById("home").href = baseUrl;
 				if (document.getElementById("user")){
-					document.getElementById("user").href = baseUrl + "/userPage?user";
+					document.getElementById("user").href = baseUrl + "/userPage?user=" + document.getElementById("user").href.split("/")[document.getElementById("user").href.split("/").length - 1];
 				}
 				document.getElementById("nav-css").href = baseUrl + "/css/nav.css";
 				document.getElementById("background").style = "background-image: url(" + baseUrl + "/gameBackgrounds/" + game + ".png); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;";
@@ -86,21 +86,17 @@
                      	<?php
 				$gameName = $_GET['myGame'];
 				$email = $_SESSION['email'];
-				$query = "INSERT INTO plays (email, gameName) VALUES ('$email', '$gameName');";
-				if(mysqli_query($connection, $query) == false){
-			        echo "Error: Was unable to add the game to your list.";
-			    }
-       //                       	$stmt = mysqli_stmt_init($connection);
-       //                          if(isset($_POST['submit'])) {
-       //                             $query = "INSERT INTO plays (email, gameName) VALUES (?,?)";
-       //                             mysqli_stmt_prepare($stmt, $query);
-       //                             mysqli_stmt_bind_param($stmt, "ss", $email, $gameName);
-       //                             mysqli_stmt_execute($stmt);
-       //                             mysqli_stmt_close($stmt);
-				   // echo $email;
-				   // echo $gameName;
-       //                             echo 'Successfully saved!';
-       //                          }
+                             	$stmt = mysqli_stmt_init($connection);
+                                if(isset($_POST['submit'])) {
+                                   $query = "INSERT INTO plays (email, gameName) VALUES (?,?)";
+                                   mysqli_stmt_prepare($stmt, $query);
+                                   mysqli_stmt_bind_param($stmt, "ss", $email, $gameName);
+                                   mysqli_stmt_execute($stmt);
+                                   mysqli_stmt_close($stmt);
+				   echo $email;
+				   echo $gameName;
+                                   echo 'Successfully saved!';
+                                }
                         ?>
 		</div>
 	</div>
