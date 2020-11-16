@@ -5,7 +5,6 @@ window.onload = function() {
 	$("#nav-placeholder").load(baseUrl + "/nav.php", function(){
 		document.getElementById("home").href = baseUrl;
         document.getElementById("user").href = 'userPage/index.php';
-        document.getElementById("login").href = 'loginPage/login.php';
 	});
 } 
 

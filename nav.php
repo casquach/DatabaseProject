@@ -19,7 +19,7 @@
 <div class="topnav">
   <a class="active" href="#home" id="home">Home</a>
   <div class="topnav-right" style="float:right">
-    <a class="active" href="#login" id="login">Login</a>
+    <a class="active" href="/loginPage/login.php" id="login">Login</a>
   </div>
 </div>
 
