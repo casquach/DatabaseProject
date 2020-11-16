@@ -86,7 +86,7 @@
                      	<?php
 				$gameName = $_GET['myGame'];
 				$email = $_SESSION['email'];
-				$query = "INSERT INTO plays (email, gameName) VALUES ('$email', '$gameName');";
+				$query = "INSERT INTO plays (email, game_name) VALUES ('$email', '$gameName');";
 				if(mysqli_query($connection, $query) == false){
 			        echo "Error: Was unable to add the game to your list.";
 			    }
