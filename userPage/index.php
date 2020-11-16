@@ -55,9 +55,11 @@
 				$query_data = mysqli_fetch_row($result);
 				echo "Bio: " . $query_data[0];
 				echo "<p></p>";
+				
+				echo "Friends Table";
 
 			?>
-		<table id="myTable">
+		<table id="friendsTable">
 				<?php
 				$query = "SELECT email2 FROM isFriendsWith WHERE email1 = '" . $email . "'";
                 if ($result = mysqli_query($connection, $query)) {
