@@ -57,9 +57,22 @@
 				echo "Bio: " . $query_data[0];
 				echo "<p></p>";
 			?>
+<!--
 			<form id="mailtext" method="post">
-                            <input type="submit" name="submit" value="Edit">
-                        </form>
+                <input type="submit" name="submit" value="Edit">
+            </form>
+-->
+            <div id="myDiv" style="display:none;">
+                WELCOME
+            
+            </div>
+            <input id="myButton" type="button" name="edit" />
+            $('#myButton').click(function() {
+              $('#myDiv').toggle('slow', function() {
+                // Animation complete.
+              });
+            });
+            
 			<?php
 				if(isset($_POST['submit'])) {
 				   $query2 = "UPDATE mailtext SET text=? WHERE id=1";
