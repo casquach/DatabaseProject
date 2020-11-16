@@ -56,11 +56,7 @@
 				echo "Bio: " . $query_data[0];
 				echo "<p></p>";
 			?>
-<!--
-			<form id="mailtext" method="post">
-                <input type="submit" name="submit" value="Edit">
-            </form>
--->
+		
             <div id="myDiv" style="display:none;">
 		<form id="mailtext" method="post">
                 	<textarea name="firstName" style="width: 140px; height: 20px;">First Name</textarea>
