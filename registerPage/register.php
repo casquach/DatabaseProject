@@ -80,20 +80,25 @@ function register()
     $database = mysqli_select_db($connection, DB_DATABASE);
     
     $username = $_GET["username"];
+    $usr = mysql_escape_string($username);
     $password = $_GET["pwd"];
+    $pwd = mysql_escape_string($password);
     $email = $_GET["email"];
+    $em = mysql_escape_string($email);
     $first = $_GET["firstname"];
+    $fname = mysql_escape_string($first);
     $last = $_GET["lastname"];
+    $lname = mysql_escape_string($last);
     //$hash_pwd = password_hash($password, PASSWORD_BCRYPT);
 
-    $query = "INSERT INTO users (email, password, username, firstName, lastName) VALUES ('$email', '$password', '$username', '$first', '$last');";
+    $query = "INSERT INTO users (email, password, username, firstName, lastName) VALUES ('$em', '$pwd', '$usr', '$fname', '$lname');";
     if(mysqli_query($connection, $query) == false){
         echo "Error: creating account failed. Check to see if there's an account associated with the email address provided.";
     }
     else{
         session_start();
-        $_SESSION['email'] = $email;
-        $_SESSION['pwd'] = $password;
+        $_SESSION['email'] = $em;
+        $_SESSION['pwd'] = $pwd;
         header('Location: /index.html');
     }
 }
