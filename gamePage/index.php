@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="gamePage.css">
 	<link rel="stylesheet" href="" id="nav-css">
 </head>
-<body>
+<body id="background">
 	<?php
 		/* Connect to MySQL and select the database. */
 		$connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
@@ -36,7 +36,8 @@
 			$("#nav-placeholder").load(baseUrl + "/nav.html", function(){
 				document.getElementById("home").href = baseUrl;
 				document.getElementById("user").href = baseUrl + "/userPage";
-				document.getElementById("nav-css").href=baseUrl + "/css/nav.css";
+				document.getElementById("nav-css").href = baseUrl + "/css/nav.css";
+				document.getElementById("background").style = "background-image: url(" + baseUrl + "/gameBackgrounds/" + game + ".jpg); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;";
 			});
 			document.getElementById("gameName").textContent = spacedGame;
 		} 
@@ -78,7 +79,7 @@
 			</tr>
 			<?php
 				echo "<tr>";
-				$query = "SELECT game_username, game_account.rank, email FROM game_account NATURAL JOIN users where game_name = '" . $spacedName . "'";
+				$query = "SELECT firstName, lastName, game_username, game_account.rank, email FROM game_account NATURAL JOIN users where game_name = '" . $spacedName . "'";
                                 if ($result = mysqli_query($connection, $query)) {
                                         $query_data = mysqli_fetch_row($result);
                                         echo "<td>" . $query_data[0] . " " . $query_data[1] . "</td>";
