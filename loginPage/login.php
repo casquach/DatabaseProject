@@ -85,8 +85,7 @@
                         $hash_pwd = $_POST['pwd'];
                         $_SESSION['email'] = $user;
                         $_SESSION['pwd'] = $hash_pwd;
-                        echo "Login successful";
-                        //header('Location: http://ec2-54-91-203-237.compute-1.amazonaws.com');
+                        header('Location: /index.html');
                     }
                     else
                     {
