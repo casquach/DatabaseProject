@@ -40,7 +40,7 @@
                 <small id="passwordHelp" class="form-text wrong-login" ></small>
             </div>
             <div class="form-group mx-sm-5 mb-2 form-rounded">
-                <button class="btn btn-lg btn-primary" type="button" >Sign in</button>
+                <button class="btn btn-lg btn-primary" type="submit" >Sign in</button>
                 <br>    
                 <a href="http://localhost:4200" class="register">Don't have an account? Register now</a>
             </div> 
@@ -52,6 +52,11 @@
     session_start();
 ?>
 <?php
+    function reject($entry){
+        echo $entry . ' must be alphanumeric characters';
+        exit();
+    }
+
     if($_SERVER['REQUEST_METHOD']=="POST" && strlen($_POST['username']) > 0)
     {
         $user = trim($_POST['username']);
@@ -78,7 +83,7 @@
                     {
                         // $hash_pwd = password_hash($pwd, PASSWORD_BCRYPT);
                         $hash_pwd = $_POST['pwd'];
-                        $_SESSION['username'] = $user;
+                        $_SESSION['email'] = $user;
                         $_SESSION['pwd'] = $hash_pwd;
                         echo "Login successful";
                         //header('Location: http://ec2-54-91-203-237.compute-1.amazonaws.com');
