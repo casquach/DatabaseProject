@@ -86,17 +86,21 @@
                      	<?php
 				$gameName = $_GET['myGame'];
 				$email = $_SESSION['email'];
-                             	$stmt = mysqli_stmt_init($connection);
-                                if(isset($_POST['submit'])) {
-                                   $query = "INSERT INTO plays (email, gameName) VALUES (?,?)";
-                                   mysqli_stmt_prepare($stmt, $query);
-                                   mysqli_stmt_bind_param($stmt, "ss", $email, $gameName);
-                                   mysqli_stmt_execute($stmt);
-                                   mysqli_stmt_close($stmt);
-				   echo $email;
-				   echo $gameName;
-                                   echo 'Successfully saved!';
-                                }
+				$query = "INSERT INTO plays (email, gameName) VALUES ('$email', '$gameName');";
+				if(mysqli_query($connection, $query) == false){
+			        echo "Error: Was unable to add the game to your list.";
+			    }
+       //                       	$stmt = mysqli_stmt_init($connection);
+       //                          if(isset($_POST['submit'])) {
+       //                             $query = "INSERT INTO plays (email, gameName) VALUES (?,?)";
+       //                             mysqli_stmt_prepare($stmt, $query);
+       //                             mysqli_stmt_bind_param($stmt, "ss", $email, $gameName);
+       //                             mysqli_stmt_execute($stmt);
+       //                             mysqli_stmt_close($stmt);
+				   // echo $email;
+				   // echo $gameName;
+       //                             echo 'Successfully saved!';
+       //                          }
                         ?>
 		</div>
 	</div>
