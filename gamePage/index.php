@@ -41,7 +41,7 @@
 			$("#nav-placeholder").load(baseUrl + "/nav.php", function(){
 				document.getElementById("home").href = baseUrl;
 				if (document.getElementById("user")){
-					document.getElementById("user").href = baseUrl + "/userPage?user";
+					document.getElementById("user").href = baseUrl + "/userPage?user=" + document.getElementById("user").href.split("/")[document.getElementById("user").href.split("/").length - 1];
 				}
 				document.getElementById("nav-css").href = baseUrl + "/css/nav.css";
 				document.getElementById("background").style = "background-image: url(" + baseUrl + "/gameBackgrounds/" + game + ".png); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;";
