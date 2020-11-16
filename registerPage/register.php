@@ -92,11 +92,12 @@ function register()
     if(mysqli_query($connection, $query) == false){
         echo "error in insertion";
     }
-
-    session_start();
-    $_SESSION['email'] = $email;
-    $_SESSION['pwd'] = $password;
-    header('Location: /index.html');
+    else{
+        session_start();
+        $_SESSION['email'] = $email;
+        $_SESSION['pwd'] = $password;
+        header('Location: /index.html');
+    }
 }
 ?>
     </body>
