@@ -40,7 +40,7 @@
                 <small id="passwordHelp" class="form-text wrong-login" ></small>
             </div>
             <div class="form-group mx-sm-5 mb-2 form-rounded">
-                <button class="btn btn-lg btn-primary" type="submit" >Sign in</button>
+                <button class="btn btn-lg btn-primary" type="button" >Sign in</button>
                 <br>    
                 <a href="http://localhost:4200" class="register">Don't have an account? Register now</a>
             </div> 
@@ -72,6 +72,7 @@
 
                 if(mysqli_num_rows($result) > 0){
                     $hashed = $result[0]['password'];
+
 
                     if($_POST['pwd'] == $hashed)
                     {
