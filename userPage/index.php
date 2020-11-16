@@ -31,14 +31,13 @@
 	</script>
 	<div class="row" style="margin:2.5%">
 		<?php
-  			$email = "cq5yc@virginia.edu";
+  			$email = $_GET["user"];
   			$result = mysqli_query($connection, "SELECT picture FROM users WHERE email= '" . $email . "'");
   			$query_data = mysqli_fetch_row($result);
   			echo '<img src="data:image/jpeg;base64,'.base64_encode( $query_data[0] ).'"/>';
 		?>
 		<div class="column" style="margin:2.5%">
 			<?php
-				$email = "cq5yc@virginia.edu";
 				$result = mysqli_query($connection, "SELECT firstName FROM users WHERE email= '" . $email . "'");
                                 $query_data = mysqli_fetch_row($result);
                                 echo "<h2>" . $query_data[0] . " ";
@@ -81,7 +80,6 @@
 			<?php
 				$stmt = mysqli_stmt_init($connection);
 				if(isset($_POST['submit'])) {
-				   $email = "cq5yc@virginia.edu";
 				   $firstName = $_POST['firstName'];
 				   $lastName = $_POST['lastName'];
 				   $bio = $_POST['bio'];
