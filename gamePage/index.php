@@ -41,9 +41,7 @@
 			$("#nav-placeholder").load(baseUrl + "/nav.php", function(){
 				document.getElementById("home").href = baseUrl;
 				if (document.getElementById("user")){
-					<?php
-						echo document.getElementById("user").href = baseUrl + "/userPage?user=" + $_SESSION["email"];
-					?>
+					document.getElementById("user").href = baseUrl + "/userPage?user";
 				}
 				document.getElementById("nav-css").href = baseUrl + "/css/nav.css";
 				document.getElementById("background").style = "background-image: url(" + baseUrl + "/gameBackgrounds/" + game + ".png); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;";
