@@ -4,11 +4,7 @@
     <head>
     <meta charset="UTF-8">  
   
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-    <meta name="author" content="Vinh Do, Kirtana Pathak, Liem Budzien">
-    <meta name="description" content="Redirect page for Telestrations">  
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
     <title>UVA Gamers - Register</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -30,6 +26,18 @@
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <form class="needs-validation" action="<?php $_SERVER['PHP_SELF'] ?>" id="login" method="get"> 
+
+            <div class="form-group mx-sm-5 mb-2">
+                <input type="text" name="email" class="form-control" id="email" placeholder="Enter email" autofocus required>
+            </div> 
+</br></br>
+            <div class="form-group mx-sm-5 mb-2">
+                <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Enter first name" autofocus required>
+            </div> 
+            <div class="form-group mx-sm-5 mb-2">
+                <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Enter last name" autofocus required>
+            </div> 
+</br></br>
             <div class="form-group mx-sm-5 mb-2">
                 <input type="text" name="username" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Enter username" autofocus required>
                 <small id="usernameHelp" class="form-text wrong-login" ></small>
@@ -71,21 +79,24 @@
 
 function register()
 {
-    require('connect-db.php');
+    $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+    if (mysqli_connect_errno()) echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    $database = mysqli_select_db($connection, DB_DATABASE);
     
     $username = $_GET["username"];
     $password = $_GET["pwd"];
-    $hash_pwd = password_hash($password, PASSWORD_BCRYPT);
-    $query = "INSERT INTO register (username, password) VALUES (:username, :password)";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':username', $username);
-    $statement->bindValue(':password', $hash_pwd);
-    $statement->execute();
-    $statement->closeCursor();
+    $email = $_GET["email"];
+    $first = $_GET["firstname"];
+    $last = $_GET["lastname"];
+    //$hash_pwd = password_hash($password, PASSWORD_BCRYPT);
+
+    $query = "INSERT INTO users (email, password, username, firstName, lastName) VALUES ('$email', '$password', '$username', '$first', '$last');";
+    if(!mysqli_query($connection, $query)) echo("<p>Error registering</p>");
+
     session_start();
-    $_SESSION['username'] = $username;
-    $_SESSION['pwd'] = $hash_pwd;
-    header('Location: lobby.php');
+    $_SESSION['email'] = $email;
+    $_SESSION['pwd'] = $password;
+    header('Location: /index.html');
 }
 ?>
     </body>
