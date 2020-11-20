@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-<?php include "../../inc/dbinfo.inc"; ?>
+<?php include "../../inc/dbinfo.inc";
+session_start(); ?>
 <head>
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	<link rel="stylesheet" href="userPage.css">
@@ -74,7 +75,8 @@
 			?>
 
 			</table>
-		
+<?php	
+	if ($email == $_SESSION['email']) { ?>
             <div id="myDiv" style="display:none;">
 		<form id="mailtext" method="post">
                 	<textarea name="firstName" style="width: 140px; height: 20px;">First Name</textarea>
@@ -108,11 +110,11 @@
 		</div>
 	</div>
 	<div class="row">
-	<?php
-		mysqli_free_result($result);
-		mysqli_close($connection);
-	?>
+		HELLO
 	</div>
-		
+	<?php
+                mysqli_free_result($result);
+                mysqli_close($connection);
+        ?>		
 </body>
 </html>
