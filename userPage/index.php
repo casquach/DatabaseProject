@@ -61,52 +61,50 @@ session_start(); ?>
 				echo "Friends Table";
 
 			?>
-		<table id="friendsTable">
+			<table id="friendsTable">
 				<?php
-				$query = "SELECT email2 FROM isFriendsWith WHERE email1 = '" . $email . "'";
-                if ($result = mysqli_query($connection, $query)) {
-                         while ($query_data = mysqli_fetch_row($result)){
-						echo "<tr>";
-                                        	echo "<td>" . $query_data[0] . "</td>";
+					$query = "SELECT email2 FROM isFriendsWith WHERE email1 = '" . $email . "'";
+					if ($result = mysqli_query($connection, $query)) {
+							while ($query_data = mysqli_fetch_row($result)){
+							echo "<tr>";
+												echo "<td>" . $query_data[0] . "</td>";
 
-						echo "</tr>";
-                     }
-				}
-			?>
-
+							echo "</tr>";
+						}
+					}
+				?>
 			</table>
-<?php	
-	if ($email == $_SESSION['email']) { ?>
-            <div id="myDiv" style="display:none;">
-		<form id="mailtext" method="post">
-                	<textarea name="firstName" style="width: 140px; height: 20px;">First Name</textarea>
-			<textarea name="lastName" style="width: 140px; height: 20px;">Last Name</textarea>
-			<textarea name="bio" style="width: 140px; height: 20px;">Bio</textarea>
-			<input type="submit" name="submit" value="Edit">
-            	</form>
-            </div>
-            <input id="myButton" type="button" value="edit" />
-	    <script>
-            $('#myButton').click(function() {
-	      $('#myButton').toggle();
-              $('#myDiv').toggle('slow', function() {
-              });
-            });
-            </script>
-			<?php
-				$stmt = mysqli_stmt_init($connection);
-				if(isset($_POST['submit'])) {
-				   $firstName = $_POST['firstName'];
-				   $lastName = $_POST['lastName'];
-				   $bio = $_POST['bio'];
-			   	   $query = "UPDATE users SET firstName=?, lastName=?, bio=?  WHERE email= '" . $email . "'";
-    				   mysqli_stmt_prepare($stmt, $query);
-    				   mysqli_stmt_bind_param($stmt, "sss", $firstName, $lastName, $bio);
-				   mysqli_stmt_execute($stmt);
-				   mysqli_stmt_close($stmt);
-				   echo 'Successfully saved! Please refresh';
-				}
-			?>
+			<?php if ($email == $_SESSION['email']) { ?>
+				<div id="myDiv" style="display:none;">
+					<form id="mailtext" method="post">
+						<textarea name="firstName" style="width: 140px; height: 20px;">First Name</textarea>
+						<textarea name="lastName" style="width: 140px; height: 20px;">Last Name</textarea>
+						<textarea name="bio" style="width: 140px; height: 20px;">Bio</textarea>
+						<input type="submit" name="submit" value="Edit">
+					</form>
+				</div>
+				<input id="myButton" type="button" value="edit" />
+				<script>
+					$('#myButton').click(function() {
+						$('#myButton').toggle();
+						$('#myDiv').toggle('slow', function() {});
+					});
+				</script>
+				<?php
+					$stmt = mysqli_stmt_init($connection);
+					if(isset($_POST['submit'])) {
+						$firstName = $_POST['firstName'];
+						$lastName = $_POST['lastName'];
+						$bio = $_POST['bio'];
+						$query = "UPDATE users SET firstName=?, lastName=?, bio=?  WHERE email= '" . $email . "'";
+							mysqli_stmt_prepare($stmt, $query);
+							mysqli_stmt_bind_param($stmt, "sss", $firstName, $lastName, $bio);
+						mysqli_stmt_execute($stmt);
+						mysqli_stmt_close($stmt);
+						echo 'Successfully saved! Please refresh';
+					}
+				?>
+			<?php } ?>
 		</div>
 	</div>
 	<div class="row">
