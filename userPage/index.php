@@ -68,13 +68,13 @@ session_start(); ?>
 			<?php if ($email == $_SESSION['email']) { ?>
 				<div id="myDiv" style="display:none;">
 					<form id="mailtext" method="post">
-						<textarea name="firstName" style="width: 140px; height: 20px;">First Name</textarea>
-						<textarea name="lastName" style="width: 140px; height: 20px;">Last Name</textarea>
-						<textarea name="bio" style="width: 140px; height: 20px;">Bio</textarea>
-						<input type="submit" name="submit" value="Edit">
+						<textarea name="firstName" style="width: 140px; height: 20px;" placeholder="First Name"></textarea>
+						<textarea name="lastName" style="width: 140px; height: 20px;" placeholder="Last Name"></textarea>
+						<textarea name="bio" style="width: 140px; height: 20px;" placeholder="Bio"></textarea>
+						<input type="submit" name="submit" value="Submit">
 					</form>
 				</div>
-				<input id="myButton" type="button" value="edit" />
+				<input id="myButton" type="button" value="Edit" />
 				<script>
 					$('#myButton').click(function() {
 						$('#myButton').toggle();
@@ -92,7 +92,8 @@ session_start(); ?>
 							mysqli_stmt_bind_param($stmt, "sss", $firstName, $lastName, $bio);
 						mysqli_stmt_execute($stmt);
 						mysqli_stmt_close($stmt);
-						echo 'Successfully saved! Please refresh';
+						echo "Successfully saved!";
+						echo "<meta http-equiv='refresh' content='0'>";
 					}
 				?>
 			<?php } ?>
