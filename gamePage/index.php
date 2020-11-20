@@ -80,27 +80,44 @@
 					echo "SAD";
 				}
 			?>
-		        <form id="mailtext" method="post">
-                        	<input type="submit" name="submit" value="Add To My Games">
-                	</form>
-                     	<?php
-				$gameName = $_GET['myGame'];
+                                <div id="myDiv" style="display:none;">
+                                        <form id="addGame" method="post">
+                                                <textarea name="gameUsername" style="width: 140px; height: 20px;" placeholder="Game Username"></textarea>
+                                                <textarea name="rank" style="width: 140px; height: 20px;" placeholder="Game Rank"></textarea>
+                                                <input type="submit" name="submit" value="Add">
+                                        </form>
+                                </div>
+                                <input id="myButton" type="button" value="Add To My Games" />
+                                <script>
+                                        $('#myButton').click(function() {
+                                                $('#myButton').toggle();
+                                                $('#myDiv').toggle('slow', function() {});
+                                        });
+                                </script>
+                        <?php
+				$game_name = $spacedName;
 				$email = $_SESSION['email'];
-				$query = "INSERT INTO plays (email, game_name) VALUES ('$email', '$gameName');";
-				if(mysqli_query($connection, $query) == false){
-			        echo "Error: Was unable to add the game to your list.";
-			    }
-       //                       	$stmt = mysqli_stmt_init($connection);
-       //                          if(isset($_POST['submit'])) {
-       //                             $query = "INSERT INTO plays (email, gameName) VALUES (?,?)";
-       //                             mysqli_stmt_prepare($stmt, $query);
-       //                             mysqli_stmt_bind_param($stmt, "ss", $email, $gameName);
-       //                             mysqli_stmt_execute($stmt);
-       //                             mysqli_stmt_close($stmt);
-				   // echo $email;
-				   // echo $gameName;
-       //                             echo 'Successfully saved!';
-       //                          }
+				if(isset($_POST['submit'])) {
+					$game_username = $_POST['gameUsername'];
+                                        $rank = $_POST['rank'];
+
+					$query_username =  "SELECT username FROM users WHERE email = '".$email."'";
+					$result = mysqli_query($connection, $query_username);
+					$query_data = mysqli_fetch_row($result);
+					$username = $query_data[0];
+
+					//echo "game_username: " . $game_username . ", ";
+					//echo "rank: " . $rank . ", ";
+					//echo "username: " . $username. ", ";
+					//echo "game name: " . $game_name ." ";
+
+	                                $stmt = mysqli_stmt_init($connection);
+					$query = "INSERT INTO game_account (game_username, game_account.rank, game_name, username) VALUES (?,?,?,?)";
+                                        mysqli_stmt_prepare($stmt, $query);
+                                        mysqli_stmt_bind_param($stmt, "ssss", $game_username, $rank, $game_name, $username);
+                                        mysqli_stmt_execute($stmt);
+       	                                mysqli_stmt_close($stmt);
+				}
                         ?>
 		</div>
 	</div>
