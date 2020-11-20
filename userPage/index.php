@@ -112,11 +112,12 @@ session_start(); ?>
 			$query = "SELECT game_name, game_username, game_account.rank FROM game_account where username = '" . $username . "'";
 			if ($result = mysqli_query($connection, $query)) {
 				while ($query_data = mysqli_fetch_row($result)){
-					$game_name = $query_data[0]
-					$favquery = "SELECT * FROM favorites WHERE username = '" . $_SESSION['email'] . "' and game_name = '" . $game_name . "'";
-					$favresult = mysqli_query($connection, $favquery);
-					if(mysqli_num_rows($favresult) > 0){
-						$game_name = $game_name + " (favorite)";
+					$game_name = $query_data[0];
+					$favquery = "SELECT * FROM favorites WHERE username = '$_SESSION['email']' AND game_name = '$game_name'";
+					if($favresult = mysqli_query($connection, $favquery)){
+						if(mysqli_num_rows($favresult) > 0){
+							$game_name = $game_name + " (favorite)";
+						}
 					}
 					echo "<tr id='myTable'>";
 					echo "<td id='myTable'>" . $game_name . "</td>";
