@@ -49,7 +49,6 @@ session_start(); ?>
 				echo "<p></p>";
 				echo "Bio: " . $query_data[3];
 				echo "<p></p>";
-				
 				echo "Friends Table";
 
 			?>
@@ -105,6 +104,9 @@ session_start(); ?>
 			<th onclick="sortTable(0)" id="myTable">Game</th>
 			<th onclick="sortTable(1)" id="myTable">Username</th>
 			<th onclick="sortTable(2)" id="myTable">Rank</th>
+			<?php if ($email == $_SESSION['email']) { ?>
+				<th id='myTable'>Delete Game</th>;
+                       	<?php } ?>
 		</tr>
 		<?php
 			$query = "SELECT game_name, game_username, game_account.rank FROM game_account where username = '" . $username . "'";
@@ -114,7 +116,10 @@ session_start(); ?>
 					echo "<td id='myTable'>" . $query_data[0] . "</td>";
 					echo "<td id='myTable'>" . $query_data[1] . "</td>";
 					echo "<td id='myTable'>" . $query_data[2] . "</td>";
-					echo "</tr>";
+					if ($email == $_SESSION['email']) {
+                                                echo "<td><input type='button' value='Delete' onclick='deleteRow(this)'/></td>";
+                                        }
+ 					echo "</tr>";
 				}
 			}
 		?>
@@ -127,6 +132,11 @@ session_start(); ?>
 </body>
 </html>
 <script>
+function deleteRow(btn) {
+  var row = btn.parentNode.parentNode;
+  row.parentNode.removeChild(row);
+}
+
 function sortTable(n) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
   table = document.getElementById("myTable");
