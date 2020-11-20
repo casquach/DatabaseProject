@@ -70,21 +70,26 @@ input[type=button], input[type=submit], input[type=reset] {
     }
   }
   
-  table {
+table#myTable {
     border-spacing: 0;
     width: 100%;
     border: 1px solid #ddd;
   }
   
-  th {
+ th#myTable th {
     cursor: pointer;
   }
   
-  th, td {
+  td#myTable {
     text-align: left;
     padding: 16px;
   }
   
-  tr:nth-child(even) {
+  th#myTable {
+    text-align: left;
+    padding: 16px;
+  }
+
+ tr#myTable:nth-child(even) {
     background-color: #f2f2f2
   }

@@ -100,19 +100,19 @@ session_start(); ?>
 	</div>
 	<div class="row" style="margin:2.5%">
 	<table id="myTable">
-		<tr>
-			<th onclick="sortTable(0)">Game</th>
-			<th onclick="sortTable(1)">Username</th>
-			<th onclick="sortTable(2)">Rank</th>
+		<tr id="myTable">
+			<th onclick="sortTable(0)" id="myTable">Game</th>
+			<th onclick="sortTable(1)" id="myTable">Username</th>
+			<th onclick="sortTable(2)" id="myTable">Rank</th>
 		</tr>
 		<?php
 			$query = "SELECT game_name, game_username, game_account.rank FROM game_account where username = '" . $username . "'";
 			if ($result = mysqli_query($connection, $query)) {
 				while ($query_data = mysqli_fetch_row($result)){
-					echo "<tr>";
-					echo "<td>" . $query_data[0] . "</td>";
-					echo "<td>" . $query_data[1] . "</td>";
-					echo "<td>" . $query_data[2] . "</td>";
+					echo "<tr id='myTable'>";
+					echo "<td id='myTable'>" . $query_data[0] . "</td>";
+					echo "<td id='myTable'>" . $query_data[1] . "</td>";
+					echo "<td id='myTable'>" . $query_data[2] . "</td>";
 					echo "</tr>";
 				}
 			}
