@@ -106,7 +106,7 @@ session_start(); ?>
 			<th onclick="sortTable(2)">Rank</th>
 		</tr>
 		<?php
-			$query = "SELECT game_name, game_username, rank FROM game_account where username = '" . $username . "'";
+			$query = "SELECT game_name, game_username, game_account.rank FROM game_account where username = '" . $username . "'";
 			if ($result = mysqli_query($connection, $query)) {
 				while ($query_data = mysqli_fetch_row($result)){
 					echo "<tr>";
