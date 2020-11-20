@@ -6,7 +6,9 @@
 <div class="topnav">
   <a class="active" href="#home" id="home">Home</a>
   <div class="topnav-right" style="float:right">
-    <a class="active" href="#user" id="user">User</a>
+<?php
+    echo "<a class'active' href=" . $_SESSION['email'] . " id='user'>User</a>"
+?>
     <a class="active" href="/logout.php" id="logout">Logout</a>
   </div>
 </div>

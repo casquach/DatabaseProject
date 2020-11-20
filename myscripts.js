@@ -4,7 +4,7 @@ var baseUrl = url.split("/")[0] + "//" + url.split("/")[2];
 window.onload = function() {
 	$("#nav-placeholder").load(baseUrl + "/nav.php", function(){
 		document.getElementById("home").href = baseUrl;
-        document.getElementById("user").href = 'userPage/index.php';
+		document.getElementById("user").href = baseUrl + "/userPage?user=" + document.getElementById("user").href.split("/")[document.getElementById("user").href.split("/").length - 1];
 	});
 } 
 
