@@ -94,7 +94,46 @@
                                                 $('#myDiv').toggle('slow', function() {});
                                         });
                                 </script>
+                                <?php if ($email == $_SESSION['email']) { 
+                                	$gname = $spacedName;
+                                	$found = false;
+                                	$favquery = "SELECT * FROM favorites WHERE username = '$_SESSION['email']' AND game_name = '$game_name'";
+                                	if($favresult = mysqli_query($connection, $favquery)){
+										if(mysqli_num_rows($favresult) > 0){
+											$found = true;
+										}
+									}
+									if($found == true){ ?>
+										<input id="removeFromFavs" name="removeFromFavs" type="submit" value="Remove This Game From Favorites" />
+								<?php
+									}
+									else{ ?>
+										<input id="addToFavs" name="addToFavs" type="submit" value="Favorite This Game" />
+								<?php
+									}
+                                ?>
+
                         <?php
+                if(isset($_POST['addToFavs'])){
+                	$usr = $_SESSION['email'];
+                	$gname = $spacedName;
+                	$addquery = "INSERT INTO favorites (username, game_name) VALUES ('$usr', '$gname');";
+                	if ($addresult = mysqli_query($connection, $addquery)) {
+                		echo "Added to favorites!";
+                		header("Refresh:0");
+                	}
+                }
+
+                if(isset($_POST['removeFromFavs'])){
+                	$usr = $_SESSION['email'];
+                	$gname = $spacedName;
+                	$rmquery = "DELETE FROM favorites WHERE username='$usr' AND game_name='$gname'";
+                	if ($rmresult = mysqli_query($connection, $rmquery)) {
+                		echo "Removed from favorites!";
+                		header("Refresh:0");
+                	}
+                }
+
 				$game_name = $spacedName;
 				$email = $_SESSION['email'];
 				if(isset($_POST['submit'])) {
