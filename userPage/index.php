@@ -99,43 +99,52 @@ session_start(); ?>
 		</div>
 	</div>
 	<div class="row" style="margin:2.5%">
-	<table id="myTable">
-		<tr id="myTable">
-			<th onclick="sortTable(0)" id="myTable">Game</th>
-			<th onclick="sortTable(1)" id="myTable">Username</th>
-			<th onclick="sortTable(2)" id="myTable">Rank</th>
-			<?php if ($email == $_SESSION['email']) { ?>
-				<th id='myTable'>Delete Game</th>;
-                       	<?php } ?>
-		</tr>
-		<?php
-			$query = "SELECT game_name, game_username, game_account.rank FROM game_account where username = '" . $username . "'";
-			if ($result = mysqli_query($connection, $query)) {
-				while ($query_data = mysqli_fetch_row($result)){
-					$game_name = $query_data[0];
-					$favquery = "SELECT * FROM favorites WHERE username = '$_SESSION['email']' AND game_name = '$game_name'";
-					if($favresult = mysqli_query($connection, $favquery)){
-						if(mysqli_num_rows($favresult) > 0){
-							$game_name = $game_name + " (favorite)";
+		<form action="" method="post">
+			<table id="myTable">
+				<tr id="myTable">
+					<th onclick="sortTable(0)" id="myTable">Game</th>
+					<th onclick="sortTable(1)" id="myTable">Username</th>
+					<th onclick="sortTable(2)" id="myTable">Rank</th>
+					<?php if ($email == $_SESSION['email']) { ?>
+						<th id='myTable'>Delete Game</th>;
+								<?php } ?>
+				</tr>
+				<?php
+					$query = "SELECT game_name, game_username, game_account.rank FROM game_account where username = '" . $username . "'";
+					if ($result = mysqli_query($connection, $query)) {
+						while ($query_data = mysqli_fetch_row($result)){
+							$game_name = $query_data[0];
+							$favquery = "SELECT * FROM favorites WHERE username = '$_SESSION['email']' AND game_name = '$game_name'";
+							if($favresult = mysqli_query($connection, $favquery)){
+								if(mysqli_num_rows($favresult) > 0){
+									$game_name = $game_name + " (favorite)";
+								}
+							}
+							echo "<tr id='myTable'>";
+							echo "<td id='myTable'>" . $game_name . "</td>";
+							echo "<td id='myTable'>" . $query_data[1] . "</td>";
+							echo "<td id='myTable'>" . $query_data[2] . "</td>";
+							if ($email == $_SESSION['email']) {
+								echo "<td><input type='submit' name='deleteItem' value='" . $query_data[1] . "' onclick='deleteRow(this)'/></td>";
+							}
+							echo "</tr>";
 						}
 					}
-					echo "<tr id='myTable'>";
-					echo "<td id='myTable'>" . $game_name . "</td>";
-					echo "<td id='myTable'>" . $query_data[1] . "</td>";
-					echo "<td id='myTable'>" . $query_data[2] . "</td>";
-					if ($email == $_SESSION['email']) {
-                                                echo "<td><input type='button' value='Delete' onclick='deleteRow(this)'/></td>";
-                                        }
- 					echo "</tr>";
-				}
-			}
-		?>
-	</table>
+				?>
+			</table>
+		</form>
 	</div>
 	<?php
-                mysqli_free_result($result);
-                mysqli_close($connection);
-        ?>		
+		if(isset($_POST['deleteItem'])){
+			// here comes your delete query: use $_POST['deleteItem'] as your id
+			$delete = $_POST['deleteItem']
+			$sql = "DELETE FROM game_account WHERE game_name = '" . $game_name . "' AND game_username = '" . $delete . "'";
+			if($favresult = mysqli_query($connection, $favquery)){
+			}
+		}		
+        mysqli_free_result($result);
+        mysqli_close($connection);
+    ?>		
 </body>
 </html>
 <script>
