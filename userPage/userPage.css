@@ -35,6 +35,12 @@ input[type=button], input[type=submit], input[type=reset] {
     max-width: 80%;
     padding: 0 7px;
   }
+
+  .columnGames {
+    flex: 20%;
+    max-width: 20%;
+    padding: 0 7px;
+  }
   
   .column img {
     margin-top: 8px;
